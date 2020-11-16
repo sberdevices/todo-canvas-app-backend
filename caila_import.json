@@ -1,0 +1,17 @@
+{
+  "project" : {
+    "id" : "demo_app-384-BXJ",
+    "name" : "demo_app-384-BXJ",
+    "folder" : "/jaicp"
+  },
+  "settings" : {
+    "language" : "ru",
+    "spellingCorrection" : false,
+    "classificationAlgorithm" : "sts",
+    "timezone" : "UTC",
+    "shared" : false
+  },
+  "intents" : [ ],
+  "entities" : [ ],
+  "enabledSystemEntities" : [ ]
+}
