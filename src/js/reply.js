@@ -24,12 +24,12 @@ function addAction(action, context, emotion_type) {
         ) {
             log('CONTEXT\n')
             context.response.replies[index].body.items.push({command: command});
-            context.response.replies[index].body.push({emotion: emotion});
+            context.response.replies[index].body.push(emotion: emotion);
             return;
         }
     }
     
-    return reply({items: [{command: command}]}, context.response);
+    return reply({emotion: emotion, items: [{command: command}]}, context.response);
 }
 
 

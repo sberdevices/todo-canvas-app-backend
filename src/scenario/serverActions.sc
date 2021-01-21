@@ -10,7 +10,6 @@ theme: /
         event!: DONE
 
         script:
-            log('request data\n' + $request);
             $temp.gender = $request.rawRequest.payload.character.gender;
             
         if: $request && $request.data && $request.data.eventData && $request.data.eventData.note
