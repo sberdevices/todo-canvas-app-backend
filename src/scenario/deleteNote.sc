@@ -13,7 +13,7 @@ theme: /
             deleteNote(itemId, $context);
 
         buttons:
-            "Добавь запись выбросить мусор"
+            "Добавь запись выбросить мусор (по номеру)"
         
         script:
             log($request)
