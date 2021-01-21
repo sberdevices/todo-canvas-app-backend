@@ -14,12 +14,6 @@ theme: /
 
         buttons:
             "Добавь запись выбросить мусор (по номеру)"
-        
-        script:
-            log($request)
-            log($context)
-            log($parseTree)
-
 
     state: УдалениеЭлемента
         q!: (~удалить|удали)
