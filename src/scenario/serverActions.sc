@@ -10,7 +10,7 @@ theme: /
         event!: DONE
         #'request data\n' + 
         script:
-            log($request.data)
+            log($request)
             
         if: $request.data.eventData.note
             a: Закрыл {{ $request.data.eventData.note }}! Молодец!
