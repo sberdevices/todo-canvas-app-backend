@@ -1,3 +1,4 @@
+// "udovolstvie" - id эмоции
 function addNote(note, context) {
     addAction({
         type: "add_note",
