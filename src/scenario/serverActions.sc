@@ -17,10 +17,6 @@ theme: /
         buttons:
             "Запиши купить молоко"
             "Добавь запись помыть машину"
-            
-        script:
-            log($request)
-            log($context)
 
            
     state: ДобавленаНоваяЗапись
@@ -36,7 +32,3 @@ theme: /
             "Запиши купить молоко"
             "Добавь запись помыть машину" 
             
-        script:
-            log($request)
-            log($context)
-            log($parseTree)
