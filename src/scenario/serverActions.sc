@@ -8,12 +8,7 @@ theme: /
     state: ЗаданиеВыполнено
         event!: done
         event!: DONE
-        #
-        request &&
-        request.payload &&
-        request.payload.meta &&
-        request.payload.meta.current_app &&
-        request.payload.meta.current_app.state
+
         script:
             log('request data\n' + $request)
             
