@@ -10,15 +10,21 @@ theme: /
         event!: DONE
 
         script:
-            log('request data\n' + $request)
+            log('request data\n' + $request);
+            $temp.gender = $request.rawRequest.payload.character.gender;
             
         if: $request && $request.data && $request.data.eventData && $request.data.eventData.note
-            a: Закрыл {{ $request.data.eventData.note }}! Молодец!
+            if: $temp.gender == "male"
+                a: Закрыл {{ $request.data.eventData.note }}! Молодец!
+            elseif: $temp.gender == "female"
+                a: Закрыла {{ $request.data.eventData.note }}! Молодец!
+            else:
+                a: Закрыто
         else:
             random: 
                 a: Молодец!
                 a: Красавчик!
-                a: Супер
+                a: Супер!
                 
         buttons:
             "Запиши купить молоко"

@@ -35,8 +35,14 @@ theme: /
             $repeat<$OpenKeyWords>
             [$repeat<$OpenSkipWords>] 
             $projectName
-            
-        a: Добро пожаловать в заметки! Чтобы добавить новую
+        script:
+            $temp.appeal = $request.payload.character.appeal;
+        if: $temp.appeal == "official"
+            a: Добро пожаловать в заметки! Чтобы добавить новую, просто скажите "Запомни" и  нужный текст.
+        elseif: $temp.appeal == "no_official"
+            a: Добро пожаловать в заметки! Чтобы добавить новую, просто скажи "Запомни" и  нужный текст.
+        else:
+            a: Добро пожаловать в заметки!
 
 
     state: Fallback
