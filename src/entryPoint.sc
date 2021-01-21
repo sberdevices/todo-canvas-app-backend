@@ -36,7 +36,7 @@ theme: /
             [$repeat<$OpenSkipWords>] 
             $projectName
         script:
-            $temp.appeal = $request.payload.character.appeal;
+            $temp.appeal = $request.rawRequest.payload.character.appeal;
         if: $temp.appeal == "official"
             a: Добро пожаловать в заметки! Чтобы добавить новую, просто скажите "Запомни" и  нужный текст.
         elseif: $temp.appeal == "no_official"
