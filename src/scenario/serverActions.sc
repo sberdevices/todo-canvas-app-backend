@@ -9,11 +9,15 @@ theme: /
         event!: done
         event!: DONE
 
-        random: 
-            a: Молодец!
-            a: Красавичк!
-            a: Супер
 
+        if: $request.data.eventData.note
+            a: Закрыл {{ $request.data.eventData.note }}! Молодец!
+        else:
+            random: 
+                a: Молодец!
+                a: Красавчик!
+                a: Супер
+                
         buttons:
             "Запиши купить молоко"
             "Добавь запись помыть машину"

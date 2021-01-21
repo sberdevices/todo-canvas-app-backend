@@ -36,7 +36,7 @@ theme: /
             [$repeat<$OpenSkipWords>] 
             $projectName
             
-        a: Начнём!
+        a: Добро пожаловать в заметки! Чтобы добавить новую
 
 
     state: Fallback
