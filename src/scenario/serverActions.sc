@@ -8,8 +8,9 @@ theme: /
     state: ЗаданиеВыполнено
         event!: done
         event!: DONE
-
-
+        script:
+            log('request data\n' + $request.data)
+            
         if: $request.data.eventData.note
             a: Закрыл {{ $request.data.eventData.note }}! Молодец!
         else:
