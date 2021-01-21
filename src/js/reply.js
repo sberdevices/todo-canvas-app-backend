@@ -29,7 +29,7 @@ function addAction(action, context, emotion_type) {
             context.response.replies[index].body.items
         ) {
             context.response.replies[index].body.items.push({command: command});
-            context.response.replies[index].body.push(emotion: emotion);
+            context.response.replies[index].body["emotion"] = emotion;
             return;
         }
     }
