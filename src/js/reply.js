@@ -3,6 +3,8 @@ function reply(body, response) {
         type: "raw",
         body: body
     };    
+    log('replyData\n')
+    log(replyData)
     response.replies = response.replies || [];
     response.replies.push(replyData);
 }
@@ -22,7 +24,6 @@ function addAction(action, context, emotion_type) {
             context.response.replies[index].body &&
             context.response.replies[index].body.items
         ) {
-            log('CONTEXT\n')
             context.response.replies[index].body.items.push({command: command});
             context.response.replies[index].body.push(emotion: emotion);
             return;
