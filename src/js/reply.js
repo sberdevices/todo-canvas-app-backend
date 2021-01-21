@@ -4,10 +4,7 @@ function reply(body, response) {
         body: body
     };    
     log('replyData')
-    log({
-        type: "raw",
-        body: body
-    })
+    log(replyData)
     response.replies = response.replies || [];
     response.replies.push(replyData);
 }
