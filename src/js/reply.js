@@ -8,10 +8,13 @@ function reply(body, response) {
 }
 
 
-function addAction(action, context) {
+function addAction(action, context, emotion) {
     var command = {
         type: "smart_app_data",
         action: action
+    };
+    var emotion = {
+        emotionId: emotion
     };
     for (var index = 0; context.response.replies && index < context.response.replies.length; index ++) {
         if (context.response.replies[index].type === "raw" &&
@@ -19,6 +22,7 @@ function addAction(action, context) {
             context.response.replies[index].body.items
         ) {
             context.response.replies[index].body.items.push({command: command});
+            context.response.replies[index].body.push({emotion: emotion});
             return;
         }
     }
