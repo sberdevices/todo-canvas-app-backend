@@ -3,7 +3,7 @@ function reply(body, response) {
         type: "raw",
         body: body
     };    
-    log('replyData\n')
+    log('replyData')
     log({
         type: "raw",
         body: body
@@ -21,6 +21,7 @@ function addAction(action, context, emotion_type) {
     var emotion = {
         emotionId: emotion_type
     };
+    log('addAction')
 
     for (var index = 0; context.response.replies && index < context.response.replies.length; index ++) {
         if (context.response.replies[index].type === "raw" &&
