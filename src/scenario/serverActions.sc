@@ -39,3 +39,4 @@ theme: /
         script:
             log($request)
             log($context)
+            log($parseTree)
