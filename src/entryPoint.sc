@@ -40,7 +40,10 @@ theme: /
             log($client)
             log($injector)
             log($parseTree)
-            log($request)
+            log("RawRequest")
+            log($request.rawRequest)
+            log("RawRequest.payload")
+            log($request.rawRequest.payload)
             log($response)
             log($session)
         if: $temp.appeal == "official"
