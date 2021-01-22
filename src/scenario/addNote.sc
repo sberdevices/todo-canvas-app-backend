@@ -6,7 +6,7 @@ theme: /
             $AnyText::anyText
             
         script:
-            log("rawRequest add");
+            log("request");
             log($request);
 
             addNote($parseTree._anyText, $context);
