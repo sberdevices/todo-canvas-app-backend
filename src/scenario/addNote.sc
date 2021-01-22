@@ -6,6 +6,10 @@ theme: /
             $AnyText::anyText
             
         script:
+            log($request)
+            log("request.rawRequest")
+            log($request.rawRequest)
+
             addNote($parseTree._anyText, $context);
         
         go!: /ДобавленаНоваяЗапись
