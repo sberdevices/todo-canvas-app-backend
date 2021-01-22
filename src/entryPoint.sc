@@ -37,11 +37,6 @@ theme: /
             $projectName
         script:
             $temp.appeal = $request.rawRequest.payload.character.appeal;
-            # log($client)
-            #log($injector)
-            #log($parseTree)
-            log("Request begin")
-            log($request)
             log("RawRequest begin")
             log($request.rawRequest)
 
