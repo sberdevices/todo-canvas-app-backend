@@ -6,9 +6,9 @@ theme: /
             $AnyText::anyText
             
         script:
-            log("RawRequest begin")
+            log("RawRequest add_element")
             log($request.rawRequest)
-            log("RawRequest.payload begin")
+            log("RawRequest.payload add_element")
             log($request.rawRequest.payload)
             addNote($parseTree._anyText, $context);
         
