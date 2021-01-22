@@ -1,15 +1,27 @@
 theme: /
 
-    state: ДобавлениеЭлемента
-        q!: (~добавить|~установить|добавь|запиши|поставь|закинь|~напомнить) 
-            [~напоминание|~заметка|~задание|~задача]
+    state: ВыполнениеЭлементаПоНомеру
+        q!: [я] (выполнил|сделал) номер
+            @duckling.number:: digit
+            $weight<1.001>
+        
+        script:
+            var itemId = findItemIdByNumber(
+                $parseTree._digit,
+                getRequest($context)
+            );
+            doneNote(itemId, $context);
+            
+        go!: /ЗаданиеВыполнено
+
+
+    state: ВыполнениеЭлемента
+        q!: [я] (выполнил|сделал)
             $AnyText::anyText
+            $weight<-0.8>
             
         script:
-            log("RawRequest add_element")
-            log($request.rawRequest)
-            log("RawRequest.payload add_element")
-            log($request.rawRequest.payload)
-            addNote($parseTree._anyText, $context);
-        
-        go!: /ДобавленаНоваяЗапись
+            var itemId = findItemIdBySelectedItem(getRequest($context));
+            doneNote(itemId, $context);
+    
+        go!: /ЗаданиеВыполнено

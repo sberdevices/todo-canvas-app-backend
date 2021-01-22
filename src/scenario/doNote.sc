@@ -1,7 +1,7 @@
 theme: /
 
-    state: ВыполнениеЭлементаПоНомеру
-        q!: [я] (выполнил|сделал) номер
+    state: УдалениеЭлементаПоНомеру
+        q!: (~удалить|удали) номер
             @duckling.number:: digit
             $weight<1.001>
         
@@ -9,19 +9,25 @@ theme: /
             var itemId = findItemIdByNumber(
                 $parseTree._digit,
                 getRequest($context)
-            );
-            doneNote(itemId, $context);
-            
-        go!: /ЗаданиеВыполнено
+            )
+            deleteNote(itemId, $context);
 
+        buttons:
+            "Добавь запись выбросить мусор"
+            "Выйди"
 
-    state: ВыполнениеЭлемента
-        q!: [я] (выполнил|сделал)
+    state: УдалениеЭлемента
+        q!: (~удалить|удали)
             $AnyText::anyText
             $weight<-0.8>
             
+        
         script:
-            var itemId = findItemIdBySelectedItem(getRequest($context));
-            doneNote(itemId, $context);
-    
-        go!: /ЗаданиеВыполнено
+            deleteNote(
+                findItemIdBySelectedItem(getRequest($context)),
+                $context
+            );
+        
+        buttons:
+            "Добавь запись выбросить мусор"
+            "Выйди"
