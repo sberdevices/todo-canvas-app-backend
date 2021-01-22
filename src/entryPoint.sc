@@ -43,7 +43,7 @@ theme: /
             log("Request begin")
             log($request)
             log("RawRequest begin")
-            log($request.rawRequest.payload)
+            log($request.rawRequest)
 
         if: $temp.appeal == "official"
             a: Добро пожаловать в заметки! Чтобы добавить новую, просто скажите "Запомни" и  нужный текст.
