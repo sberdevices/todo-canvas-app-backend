@@ -1,27 +1,11 @@
 theme: /
 
-    state: ВыполнениеЭлементаПоНомеру
-        q!: [я] (выполнил|сделал) номер
-            @duckling.number:: digit
-            $weight<1.001>
-        
-        script:
-            var itemId = findItemIdByNumber(
-                $parseTree._digit,
-                getRequest($context)
-            );
-            doneNote(itemId, $context);
-            
-        go!: /ЗаданиеВыполнено
-
-
-    state: ВыполнениеЭлемента
-        q!: [я] (выполнил|сделал)
+    state: ДобавлениеЭлемента
+        q!: (~добавить|~установить|добавь|запиши|поставь|закинь|~напомнить) 
+            [~напоминание|~заметка|~задание|~задача]
             $AnyText::anyText
-            $weight<-0.8>
             
         script:
-            var itemId = findItemIdBySelectedItem(getRequest($context));
-            doneNote(itemId, $context);
-    
-        go!: /ЗаданиеВыполнено
+            addNote($parseTree._anyText, $context);
+        
+        go!: /ДобавленаНоваяЗапись

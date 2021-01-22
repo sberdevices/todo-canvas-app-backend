@@ -34,10 +34,7 @@ theme: /
     state: ДобавленаНоваяЗапись
         event!: note_added
         event!: NOTE_ADDED
-        script:
-            log("RawRequest note_added")
-            log($request.rawRequest)
-            
+
         random: 
             a: Добавлено!
             a: Сохранено!
