@@ -7,7 +7,7 @@ theme: /
             
         script:
             log("rawRequest add");
-            log($request.rawRequest);
+            log($request);
 
             addNote($parseTree._anyText, $context);
         
