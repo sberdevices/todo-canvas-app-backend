@@ -38,7 +38,6 @@ theme: /
         script:
             $temp.appeal = $request.rawRequest.payload.character.appeal;
             log($client)
-            log($clientProfile)
             log($injector)
             log($parseTree)
             log($request)
