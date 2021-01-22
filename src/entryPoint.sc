@@ -37,15 +37,14 @@ theme: /
             $projectName
         script:
             $temp.appeal = $request.rawRequest.payload.character.appeal;
-            log($client)
-            log($injector)
-            log($parseTree)
-            log("RawRequest")
+            # log($client)
+            #log($injector)
+            #log($parseTree)
+            log("RawRequest begin")
             log($request.rawRequest)
-            log("RawRequest.payload")
+            log("RawRequest.payload begin")
             log($request.rawRequest.payload)
-            log($response)
-            log($session)
+
         if: $temp.appeal == "official"
             a: Добро пожаловать в заметки! Чтобы добавить новую, просто скажите "Запомни" и  нужный текст.
         elseif: $temp.appeal == "no_official"
