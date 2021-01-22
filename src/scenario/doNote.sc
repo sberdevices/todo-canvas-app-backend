@@ -6,6 +6,7 @@ theme: /
             $weight<1.001>
         
         script:
+
             var itemId = findItemIdByNumber(
                 $parseTree._digit,
                 getRequest($context)
