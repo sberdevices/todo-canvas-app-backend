@@ -22,7 +22,7 @@ patterns:
     $OpenKeyWords = (включи|включить|включай|запусти|запустить|запускай|играть|
         поиграть|поиграем|навык|игра|игру|скил|скилл|приложение|апп|сыграем|
         открой|поиграй со мной|сыграть|давай играть|активируй|давай|поиграем)
-    $projectName = (demo_app) #
+    $projectName = (Название вашего навыка) #
 
 
 theme: /
@@ -37,8 +37,6 @@ theme: /
             $projectName
         script:
             $temp.appeal = $request.rawRequest.payload.character.appeal;
-            log("RawRequest begin")
-            log($request.rawRequest)
 
         if: $temp.appeal == "official"
             a: Добро пожаловать в заметки! Чтобы добавить новую, просто скажите "Запомни" и  нужный текст.
