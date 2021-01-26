@@ -1,0 +1,589 @@
+{
+	"info": {
+		"_postman_id": "4b276865-6122-4d2d-b6f0-33d76224a26b",
+		"name": "collection demo-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "joy",
+			"item": [
+				{
+					"name": "start_joy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Запуск с Джой\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.payload.pronounceText).to.eql(\"Добро пожаловать в заметки! Чтобы добавить новую, просто скажи \\\"Запомни\\\" и  нужный текст.\");",
+									"    pm.expect(jsonData.payload.items[0].bubble.text).to.eql(\"Добро пожаловать в заметки! Чтобы добавить новую, просто скажи \\\"Запомни\\\" и  нужный текст.\");",
+									"});",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"postman.setNextRequest('add_note')",
+									"",
+									"",
+									"// Последовательность тестов",
+									"//    start_joy ->  add_note -> add_note_2 -> add_note_3 -> delete_node_text -> do_note_text -> ",
+									"// -> delete_node_number -> do_note_by_click_joy ->",
+									"// -> start_sber -> add_note -> add_note_2 -> add_note_3 -> delete_node_text -> do_note_text -> ",
+									"// -> delete_node_number -> do_note_by_click_sber"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var jsonData = pm.request.body.toJSON().raw; //returns string",
+									"var scenario_request = JSON.parse(jsonData);",
+									"pm.environment.set(\"character\", JSON.stringify(scenario_request.payload.character));",
+									"pm.environment.set(\"sessionId\", scenario_request.sessionId);",
+									"pm.environment.set(\"userId\", scenario_request.uuid.userId);",
+									"postman.setNextRequest('add_note'); //setNextRequest does not affects by folders"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"messageId\": 1611312586382,\n    \"sessionId\": \"61e1f39d-4f1e-45b7-9566-eec706a089d2\",\n    \"messageName\": \"MESSAGE_TO_SKILL\",\n    \"payload\": {\n        \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n        \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n        \"projectName\": \"6a7ee05c-cc47-4681-82ee-83ca1cb083d2\",\n        \"intent\": \"run_app\",\n        \"original_intent\": \"run_app\",\n        \"intent_meta\": {},\n        \"message\": {\n            \"original_text\": \"Запусти run_app\",\n            \"normalized_text\": \"запустить run_app .\",\n            \"tokenized_elements_list\": [\n                {\n                    \"text\": \"Запусти\",\n                    \"raw_text\": \"Запусти\",\n                    \"grammem_info\": {\n                        \"aspect\": \"perf\",\n                        \"mood\": \"imp\",\n                        \"number\": \"sing\",\n                        \"person\": \"2\",\n                        \"transitivity\": \"tran\",\n                        \"verbform\": \"fin\",\n                        \"voice\": \"act\",\n                        \"raw_gram_info\": \"aspect=perf|mood=imp|number=sing|person=2|transitivity=tran|verbform=fin|voice=act\",\n                        \"part_of_speech\": \"VERB\"\n                    },\n                    \"lemma\": \"запустить\",\n                    \"is_stop_word\": false,\n                    \"list_of_dependents\": [\n                        2\n                    ],\n                    \"dependency_type\": \"root\",\n                    \"head\": 0\n                },\n                {\n                    \"text\": \"run_app\",\n                    \"raw_text\": \"run_app\",\n                    \"grammem_info\": {\n                        \"degree\": \"pos\",\n                        \"raw_gram_info\": \"degree=pos\",\n                        \"part_of_speech\": \"ADV\"\n                    },\n                    \"lemma\": \"run_app\",\n                    \"is_stop_word\": false,\n                    \"list_of_dependents\": [],\n                    \"dependency_type\": \"advmod\",\n                    \"head\": 1\n                },\n                {\n                    \"raw_text\": \".\",\n                    \"text\": \".\",\n                    \"lemma\": \".\",\n                    \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n                    \"token_value\": {\n                        \"value\": \".\"\n                    },\n                    \"list_of_token_types_data\": [\n                        {\n                            \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n                            \"token_value\": {\n                                \"value\": \".\"\n                            }\n                        }\n                    ]\n                }\n            ],\n            \"entities\": {},\n            \"original_message_name\": \"MESSAGE_FROM_USER\",\n            \"human_normalized_text\": \"запустить run_app\",\n            \"human_normalized_text_with_anaphora\": \"запустить run_app\"\n        },\n        \"device\": {\n            \"platformType\": \"WEBDBG\",\n            \"platformVersion\": \"1.0\",\n            \"surface\": \"SBERBOX\",\n            \"surfaceVersion\": \"20.09.1.3576\",\n            \"features\": {\n                \"appTypes\": [\n                    \"DIALOG\",\n                    \"WEB_APP\"\n                ]\n            },\n            \"capabilities\": {\n                \"screen\": {\n                    \"available\": true,\n                    \"height\": 804,\n                    \"width\": 1440\n                },\n                \"speak\": {\n                    \"available\": true\n                }\n            },\n            \"deviceId\": \"\",\n            \"deviceManufacturer\": \"\",\n            \"deviceModel\": \"\",\n            \"additionalInfo\": {\n                \"host_app_id\": \"ru.sberbank.sdakit.demo\",\n                \"sdk_version\": \"20.09.1.3576\"\n            }\n        },\n        \"app_info\": {\n            \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n            \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n            \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n            \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n            \"frontendType\": \"WEB_APP\"\n        },\n        \"annotations\": {\n            \"censor_data\": {\n                \"classes\": [\n                    \"politicians\",\n                    \"obscene\",\n                    \"model_response\"\n                ],\n                \"probas\": [\n                    0,\n                    0,\n                    0.004619085695594549\n                ]\n            },\n            \"text_sentiment\": {\n                \"classes\": [\n                    \"negative\",\n                    \"positive\",\n                    \"neutral\"\n                ],\n                \"probas\": [\n                    4.135401396321292e-11,\n                    1.769601645766779e-16,\n                    1\n                ]\n            },\n            \"asr_sentiment\": {\n                \"classes\": [],\n                \"probas\": []\n            }\n        },\n        \"selected_item\": {},\n        \"new_session\": true,\n        \"strategies\": {},\n        \"character\": {\n            \"id\": \"joy\",\n            \"name\": \"Джой\",\n            \"gender\": \"female\",\n            \"appeal\": \"no_official\"\n        },\n        \"meta\": {\n            \"current_app\": {},\n            \"time\": {}\n        },\n        \"asr\": {},\n        \"client_profile\": {}\n    },\n    \"uuid\": {\n        \"userId\": \"webdbg_userid_wuoxxs4ydogl79bdt0w9dl\",\n        \"sub\": \"bskfAL5MGufzEN1jtRkb0M86QW/OgCJQWB7AMIfF7L/p5RvUK+rZ7vDrGSIXfKb27SUl5D2j7Hxp8XCCyNrj5petX2ctNCge9CCAZsQndriOXBwL2ymVMkCt8ocHrvzqNNgLw/nayKFbXv/cXWwTF71Pbx11KTf/MlHpFgYYLg4=\",\n        \"userChannel\": \"B2C\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{webhook}}",
+							"host": [
+								"{{webhook}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "do_note_by_click_joy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Выполнение сходить в магазин кликом на checkbox\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.payload.pronounceText).to.be.eql(\"Закрыла посмотреть фильм! Молодец!\");",
+									"    pm.expect(jsonData.payload.items[0].bubble.text).to.be.eql(\"Закрыла посмотреть фильм! Молодец!\");",
+									"    pm.expect(jsonData.payload.server_action.action_id).to.be.eql(\"DONE\");",
+									"    pm.expect(jsonData.payload.server_action.parameters.note).to.be.eql(\"посмотреть фильм\");",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"postman.setNextRequest('start_sber') // the end of the tests"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"messageId\": 1611562102856,\n    \"sessionId\": \"{{sessionId}}\",\n    \"messageName\": \"SERVER_ACTION\",\n    \"uuid\": {\n        \"userChannel\": \"B2C\",\n        \"sub\": \"bskfAL5MGufzEN1jtRkb0M86QW/OgCJQWB7AMIfF7L/p5RvUK+rZ7vDrGSIXfKb27SUl5D2j7Hxp8XCCyNrj5petX2ctNCge9CCAZsQndriOXBwL2ymVMkCt8ocHrvzqNNgLw/nayKFbXv/cXWwTF71Pbx11KTf/MlHpFgYYLg4=\",\n        \"userId\": \"{{userId}}\"\n    },\n    \"payload\": {\n        \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n        \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n        \"projectName\": \"6a7ee05c-cc47-4681-82ee-83ca1cb083d2\",\n        \"device\": {\n            \"platformType\": \"WEBDBG\",\n            \"platformVersion\": \"1.0\",\n            \"surface\": \"SBERBOX\",\n            \"surfaceVersion\": \"20.09.1.3576\",\n            \"features\": {\n                \"appTypes\": [\n                    \"DIALOG\",\n                    \"WEB_APP\"\n                ]\n            },\n            \"capabilities\": {\n                \"screen\": {\n                    \"available\": true,\n                    \"height\": 804,\n                    \"width\": 1440\n                },\n                \"speak\": {\n                    \"available\": true\n                }\n            },\n            \"deviceId\": \"\",\n            \"deviceManufacturer\": \"\",\n            \"deviceModel\": \"\",\n            \"additionalInfo\": {\n                \"host_app_id\": \"ru.sberbank.sdakit.demo\",\n                \"sdk_version\": \"20.09.1.3576\"\n            }\n        },\n        \"app_info\": {\n            \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n            \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n            \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n            \"systemName\": null,\n            \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n            \"frontendType\": \"WEB_APP\"\n        },\n        \"new_session\": true,\n        \"strategies\": {\n            \"last_call\": null\n        },\n        \"character\": {\n            \"id\": \"joy\",\n            \"name\": \"Джой\",\n            \"gender\": \"female\",\n            \"appeal\": \"no_official\"\n        },\n        \"meta\": {\n            \"current_app\": {\n                \"app_info\": {\n                    \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n                    \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n                    \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n                    \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n                    \"frontendType\": \"WEB_APP\",\n                    \"frontendStateId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e_7e4562d7-6313-408b-895f-a7b381393d3d_e33fe593-dcb4-402f-a626-15394d96115f\"\n                },\n                \"state\": {\n                    \"item_selector\": {\n                        \"items\": [\n                            {\n                                \"number\": 1,\n                                \"id\": \"p1s28o\",\n                                \"title\": \"сходить в магазин\"\n                            },\n                            {\n                                \"number\": 2,\n                                \"id\": \"g6iut\",\n                                \"title\": \"посмотреть фильм\"\n                            }\n                        ]\n                    }\n                }\n            },\n            \"time\": {}\n        },\n        \"server_action\": {\n            \"action_id\": \"DONE\",\n            \"parameters\": {\n                \"note\": \"посмотреть фильм\"\n            }\n        },\n        \"client_profile\": {}\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{webhook}}",
+							"host": [
+								"{{webhook}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sber",
+			"item": [
+				{
+					"name": "start_sber",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var jsonData = pm.request.body.toJSON().raw; //returns string",
+									"var scenario_request = JSON.parse(jsonData)",
+									"pm.environment.set(\"character\", JSON.stringify(scenario_request.payload.character));",
+									"pm.environment.set(\"sessionId\", scenario_request.sessionId);",
+									"pm.environment.set(\"userId\", scenario_request.uuid.userId);",
+									"postman.setNextRequest('add_note');"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Запуск с Сбер\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.payload.pronounceText).to.eql(\"Добро пожаловать в заметки! Чтобы добавить новую, просто скажите \\\"Запомни\\\" и  нужный текст.\");",
+									"    pm.expect(jsonData.payload.items[0].bubble.text).to.eql(\"Добро пожаловать в заметки! Чтобы добавить новую, просто скажите \\\"Запомни\\\" и  нужный текст.\");",
+									"});",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"postman.setNextRequest('add_note') //setNextRequest does not affects by folders",
+									"",
+									"// Последовательность тестов",
+									"//    start_joy ->  add_note -> add_note_2 -> add_note_3 -> delete_node_text -> do_note_text -> ",
+									"// -> delete_node_number -> do_note_by_click_joy ->",
+									"// -> start_sber -> add_note -> add_note_2 -> add_note_3 -> delete_node_text -> do_note_text -> ",
+									"// -> delete_node_number -> do_note_by_click_sber",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"messageId\": 1611329606071,\n    \"sessionId\": \"1bbe4720-2974-4b60-9256-1a253a8d3c2f\",\n    \"messageName\": \"MESSAGE_TO_SKILL\",\n    \"payload\": {\n        \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n        \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n        \"projectName\": \"6a7ee05c-cc47-4681-82ee-83ca1cb083d2\",\n        \"intent\": \"run_app\",\n        \"original_intent\": \"run_app\",\n        \"intent_meta\": {},\n        \"message\": {\n            \"original_text\": \"Запусти demo_app\",\n            \"normalized_text\": \"запустить demo_app .\",\n            \"tokenized_elements_list\": [\n                {\n                    \"text\": \"Запусти\",\n                    \"raw_text\": \"Запусти\",\n                    \"grammem_info\": {\n                        \"aspect\": \"perf\",\n                        \"mood\": \"imp\",\n                        \"number\": \"sing\",\n                        \"person\": \"2\",\n                        \"transitivity\": \"tran\",\n                        \"verbform\": \"fin\",\n                        \"voice\": \"act\",\n                        \"raw_gram_info\": \"aspect=perf|mood=imp|number=sing|person=2|transitivity=tran|verbform=fin|voice=act\",\n                        \"part_of_speech\": \"VERB\"\n                    },\n                    \"lemma\": \"запустить\",\n                    \"is_stop_word\": false,\n                    \"list_of_dependents\": [\n                        2\n                    ],\n                    \"dependency_type\": \"root\",\n                    \"head\": 0\n                },\n                {\n                    \"text\": \"demo_app\",\n                    \"raw_text\": \"demo_app\",\n                    \"grammem_info\": {\n                        \"degree\": \"pos\",\n                        \"raw_gram_info\": \"degree=pos\",\n                        \"part_of_speech\": \"ADV\"\n                    },\n                    \"lemma\": \"demo_app\",\n                    \"is_stop_word\": false,\n                    \"list_of_dependents\": [],\n                    \"dependency_type\": \"advmod\",\n                    \"head\": 1\n                },\n                {\n                    \"raw_text\": \".\",\n                    \"text\": \".\",\n                    \"lemma\": \".\",\n                    \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n                    \"token_value\": {\n                        \"value\": \".\"\n                    },\n                    \"list_of_token_types_data\": [\n                        {\n                            \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n                            \"token_value\": {\n                                \"value\": \".\"\n                            }\n                        }\n                    ]\n                }\n            ],\n            \"entities\": {},\n            \"original_message_name\": \"MESSAGE_FROM_USER\",\n            \"human_normalized_text\": \"запустить demo_app\",\n            \"human_normalized_text_with_anaphora\": \"запустить demo_app\"\n        },\n        \"device\": {\n            \"platformType\": \"WEBDBG\",\n            \"platformVersion\": \"1.0\",\n            \"surface\": \"SBERBOX\",\n            \"surfaceVersion\": \"20.09.1.3576\",\n            \"features\": {\n                \"appTypes\": [\n                    \"DIALOG\",\n                    \"WEB_APP\"\n                ]\n            },\n            \"capabilities\": {\n                \"screen\": {\n                    \"available\": true,\n                    \"height\": 804,\n                    \"width\": 1440\n                },\n                \"speak\": {\n                    \"available\": true\n                }\n            },\n            \"deviceId\": \"\",\n            \"deviceManufacturer\": \"\",\n            \"deviceModel\": \"\",\n            \"additionalInfo\": {\n                \"host_app_id\": \"ru.sberbank.sdakit.demo\",\n                \"sdk_version\": \"20.09.1.3576\"\n            }\n        },\n        \"app_info\": {\n            \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n            \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n            \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n            \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n            \"frontendType\": \"WEB_APP\"\n        },\n        \"annotations\": {\n            \"censor_data\": {\n                \"classes\": [\n                    \"politicians\",\n                    \"obscene\",\n                    \"model_response\"\n                ],\n                \"probas\": [\n                    0,\n                    0,\n                    0.004619085695594549\n                ]\n            },\n            \"text_sentiment\": {\n                \"classes\": [\n                    \"negative\",\n                    \"positive\",\n                    \"neutral\"\n                ],\n                \"probas\": [\n                    4.135401396321292e-11,\n                    1.769601645766779e-16,\n                    1\n                ]\n            },\n            \"asr_sentiment\": {\n                \"classes\": [],\n                \"probas\": []\n            }\n        },\n        \"selected_item\": {},\n        \"new_session\": true,\n        \"strategies\": {},\n        \"character\": {\n            \"id\": \"sber\",\n            \"name\": \"Сбер\",\n            \"gender\": \"male\",\n            \"appeal\": \"official\"\n        },\n        \"meta\": {\n            \"current_app\": {},\n            \"time\": {}\n        },\n        \"asr\": {},\n        \"client_profile\": {}\n    },\n    \"uuid\": {\n        \"userId\": \"webdbg_userid_4hqo2e3u6xpzj2jj1ajf8o\",\n        \"sub\": \"bskfAL5MGufzEN1jtRkb0M86QW/OgCJQWB7AMIfF7L/p5RvUK+rZ7vDrGSIXfKb27SUl5D2j7Hxp8XCCyNrj5petX2ctNCge9CCAZsQndriOXBwL2ymVMkCt8ocHrvzqNNgLw/nayKFbXv/cXWwTF71Pbx11KTf/MlHpFgYYLg4=\",\n        \"userChannel\": \"B2C\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{webhook}}",
+							"host": [
+								"{{webhook}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "do_note_by_click_sber",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Выполнение сходить в магазин кликом на checkbox\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.payload.pronounceText).to.be.eql(\"Закрыл посмотреть фильм! Молодец!\");",
+									"    pm.expect(jsonData.payload.items[0].bubble.text).to.be.eql(\"Закрыл посмотреть фильм! Молодец!\");",
+									"    pm.expect(jsonData.payload.server_action.action_id).to.be.eql(\"DONE\");",
+									"    pm.expect(jsonData.payload.server_action.parameters.note).to.be.eql(\"посмотреть фильм\");",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"postman.setNextRequest(null) // the end of the tests"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"messageId\": 1611562102856,\n    \"sessionId\": \"{{sessionId}}\",\n    \"messageName\": \"SERVER_ACTION\",\n    \"uuid\": {\n        \"userChannel\": \"B2C\",\n        \"sub\": \"bskfAL5MGufzEN1jtRkb0M86QW/OgCJQWB7AMIfF7L/p5RvUK+rZ7vDrGSIXfKb27SUl5D2j7Hxp8XCCyNrj5petX2ctNCge9CCAZsQndriOXBwL2ymVMkCt8ocHrvzqNNgLw/nayKFbXv/cXWwTF71Pbx11KTf/MlHpFgYYLg4=\",\n        \"userId\": \"{{userId}}\"\n    },\n    \"payload\": {\n        \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n        \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n        \"projectName\": \"6a7ee05c-cc47-4681-82ee-83ca1cb083d2\",\n        \"device\": {\n            \"platformType\": \"WEBDBG\",\n            \"platformVersion\": \"1.0\",\n            \"surface\": \"SBERBOX\",\n            \"surfaceVersion\": \"20.09.1.3576\",\n            \"features\": {\n                \"appTypes\": [\n                    \"DIALOG\",\n                    \"WEB_APP\"\n                ]\n            },\n            \"capabilities\": {\n                \"screen\": {\n                    \"available\": true,\n                    \"height\": 804,\n                    \"width\": 1440\n                },\n                \"speak\": {\n                    \"available\": true\n                }\n            },\n            \"deviceId\": \"\",\n            \"deviceManufacturer\": \"\",\n            \"deviceModel\": \"\",\n            \"additionalInfo\": {\n                \"host_app_id\": \"ru.sberbank.sdakit.demo\",\n                \"sdk_version\": \"20.09.1.3576\"\n            }\n        },\n        \"app_info\": {\n            \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n            \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n            \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n            \"systemName\": null,\n            \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n            \"frontendType\": \"WEB_APP\"\n        },\n        \"new_session\": true,\n        \"strategies\": {\n            \"last_call\": null\n        },\n        \"character\": {\n            \"id\": \"sber\",\n            \"name\": \"Сбер\",\n            \"gender\": \"male\",\n            \"appeal\": \"official\"\n        },\n        \"meta\": {\n            \"current_app\": {\n                \"app_info\": {\n                    \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n                    \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n                    \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n                    \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n                    \"frontendType\": \"WEB_APP\",\n                    \"frontendStateId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e_7e4562d7-6313-408b-895f-a7b381393d3d_e33fe593-dcb4-402f-a626-15394d96115f\"\n                },\n                \"state\": {\n                    \"item_selector\": {\n                        \"items\": [\n                            {\n                                \"number\": 1,\n                                \"id\": \"p1s28o\",\n                                \"title\": \"сходить в магазин\"\n                            },\n                            {\n                                \"number\": 2,\n                                \"id\": \"g6iut\",\n                                \"title\": \"посмотреть фильм\"\n                            }\n                        ]\n                    }\n                }\n            },\n            \"time\": {}\n        },\n        \"server_action\": {\n            \"action_id\": \"DONE\",\n            \"parameters\": {\n                \"note\": \"посмотреть фильм\"\n            }\n        },\n        \"client_profile\": {}\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{webhook}}",
+							"host": [
+								"{{webhook}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "add_note",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Добавить сходить в магазин\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.payload.pronounceText).to.oneOf([\"Добавлено!\", \"Сохранено!\", \"Записано!\"]);",
+							"    pm.expect(jsonData.payload.items[0].bubble.text).to.oneOf([\"Добавлено!\", \"Сохранено!\", \"Записано!\"]);",
+							"    pm.expect(jsonData.payload.items[1].command.action.note).to.be.eql(\"сходить в магазин\");",
+							"    pm.expect(jsonData.payload.items[1].command.action.type).to.be.eql(\"add_note\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"postman.setNextRequest('add_note_2')"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var jsonData = pm.request.body.toJSON().raw; //returns string",
+							"postman.setNextRequest('add_note_2');"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"messageId\": 1611329606072,\n    \"sessionId\": \"{{sessionId}}\",\n    \"messageName\": \"MESSAGE_TO_SKILL\",\n    \"payload\": {\n        \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n        \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n        \"projectName\": \"6a7ee05c-cc47-4681-82ee-83ca1cb083d2\",\n        \"intent\": \"run_app\",\n        \"original_intent\": \"axon\",\n        \"intent_meta\": {},\n        \"message\": {\n            \"original_text\": \"добавь сходить в магазин\",\n            \"normalized_text\": \"добавить сходить в магазин .\",\n            \"tokenized_elements_list\": [\n                {\n                    \"text\": \"добавь\",\n                    \"raw_text\": \"добавь\",\n                    \"grammem_info\": {\n                        \"aspect\": \"perf\",\n                        \"mood\": \"imp\",\n                        \"number\": \"sing\",\n                        \"person\": \"2\",\n                        \"transitivity\": \"tran\",\n                        \"verbform\": \"fin\",\n                        \"voice\": \"act\",\n                        \"raw_gram_info\": \"aspect=perf|mood=imp|number=sing|person=2|transitivity=tran|verbform=fin|voice=act\",\n                        \"part_of_speech\": \"VERB\"\n                    },\n                    \"lemma\": \"добавить\",\n                    \"is_stop_word\": false,\n                    \"list_of_dependents\": [\n                        2\n                    ],\n                    \"dependency_type\": \"root\",\n                    \"head\": 0\n                },\n                {\n                    \"text\": \"сходить\",\n                    \"raw_text\": \"сходить\",\n                    \"grammem_info\": {\n                        \"aspect\": \"perf\",\n                        \"transitivity\": \"intr\",\n                        \"verbform\": \"inf\",\n                        \"raw_gram_info\": \"aspect=perf|transitivity=intr|verbform=inf\",\n                        \"part_of_speech\": \"VERB\"\n                    },\n                    \"lemma\": \"сходить\",\n                    \"is_stop_word\": false,\n                    \"list_of_dependents\": [\n                        4\n                    ],\n                    \"dependency_type\": \"xcomp\",\n                    \"head\": 1\n                },\n                {\n                    \"text\": \"в\",\n                    \"raw_text\": \"в\",\n                    \"grammem_info\": {\n                        \"raw_gram_info\": \"\",\n                        \"part_of_speech\": \"ADP\"\n                    },\n                    \"lemma\": \"в\",\n                    \"is_stop_word\": false,\n                    \"list_of_dependents\": [],\n                    \"dependency_type\": \"case\",\n                    \"head\": 4\n                },\n                {\n                    \"text\": \"магазин\",\n                    \"raw_text\": \"магазин\",\n                    \"grammem_info\": {\n                        \"animacy\": \"inan\",\n                        \"case\": \"acc\",\n                        \"gender\": \"masc\",\n                        \"number\": \"sing\",\n                        \"raw_gram_info\": \"animacy=inan|case=acc|gender=masc|number=sing\",\n                        \"part_of_speech\": \"NOUN\"\n                    },\n                    \"lemma\": \"магазин\",\n                    \"is_stop_word\": false,\n                    \"list_of_dependents\": [\n                        3\n                    ],\n                    \"dependency_type\": \"obl\",\n                    \"head\": 2\n                },\n                {\n                    \"raw_text\": \".\",\n                    \"text\": \".\",\n                    \"lemma\": \".\",\n                    \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n                    \"token_value\": {\n                        \"value\": \".\"\n                    },\n                    \"list_of_token_types_data\": [\n                        {\n                            \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n                            \"token_value\": {\n                                \"value\": \".\"\n                            }\n                        }\n                    ]\n                }\n            ],\n            \"entities\": {},\n            \"original_message_name\": \"MESSAGE_FROM_USER\",\n            \"human_normalized_text\": \"добавить сходить в магазин\",\n            \"human_normalized_text_with_anaphora\": \"добавить сходить в магазин\"\n        },\n        \"device\": {\n            \"platformType\": \"WEBDBG\",\n            \"platformVersion\": \"1.0\",\n            \"surface\": \"SBERBOX\",\n            \"surfaceVersion\": \"20.09.1.3576\",\n            \"features\": {\n                \"appTypes\": [\n                    \"DIALOG\",\n                    \"WEB_APP\"\n                ]\n            },\n            \"capabilities\": {\n                \"screen\": {\n                    \"available\": true,\n                    \"height\": 804,\n                    \"width\": 1440\n                },\n                \"speak\": {\n                    \"available\": true\n                }\n            },\n            \"deviceId\": \"\",\n            \"deviceManufacturer\": \"\",\n            \"deviceModel\": \"\",\n            \"additionalInfo\": {\n                \"host_app_id\": \"ru.sberbank.sdakit.demo\",\n                \"sdk_version\": \"20.09.1.3576\"\n            }\n        },\n        \"app_info\": {\n            \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n            \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n            \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n            \"frontendEndpoint\": \"https://f7986dc510da.ngrok.io\",\n            \"frontendType\": \"WEB_APP\"\n        },\n        \"annotations\": {\n            \"censor_data\": {\n                \"classes\": [\n                    \"politicians\",\n                    \"obscene\",\n                    \"model_response\"\n                ],\n                \"probas\": [\n                    0,\n                    0,\n                    0.0029130226466804743\n                ]\n            },\n            \"text_sentiment\": {\n                \"classes\": [\n                    \"negative\",\n                    \"positive\",\n                    \"neutral\"\n                ],\n                \"probas\": [\n                    8.585253064019582e-10,\n                    4.1067479240228493e-16,\n                    1\n                ]\n            },\n            \"asr_sentiment\": {\n                \"classes\": [],\n                \"probas\": []\n            }\n        },\n        \"selected_item\": {},\n        \"new_session\": false,\n        \"strategies\": {},\n        \"character\": {{character}},\n        \"meta\": {\n            \"current_app\": {\n                \"app_info\": {\n                    \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n                    \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n                    \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n                    \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n                    \"frontendType\": \"WEB_APP\",\n                    \"frontendStateId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e_7e4562d7-6313-408b-895f-a7b381393d3d_e33fe593-dcb4-402f-a626-15394d96115f\"\n                },\n                \"state\": {\n                    \"item_selector\": {\n                        \"items\": []\n                    }\n                }\n            },\n            \"time\": {}\n        },\n        \"asr\": {},\n        \"client_profile\": {}\n    },\n    \"uuid\": {\n        \"userId\": \"{{userId}}\",\n        \"sub\": \"bskfAL5MGufzEN1jtRkb0M86QW/OgCJQWB7AMIfF7L/p5RvUK+rZ7vDrGSIXfKb27SUl5D2j7Hxp8XCCyNrj5petX2ctNCge9CCAZsQndriOXBwL2ymVMkCt8ocHrvzqNNgLw/nayKFbXv/cXWwTF71Pbx11KTf/MlHpFgYYLg4=\",\n        \"userChannel\": \"B2C\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{webhook}}",
+					"host": [
+						"{{webhook}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add_note_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Добавить купить молоко\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.payload.pronounceText).to.oneOf([\"Добавлено!\", \"Сохранено!\", \"Записано!\"]);",
+							"    pm.expect(jsonData.payload.items[0].bubble.text).to.oneOf([\"Добавлено!\", \"Сохранено!\", \"Записано!\"]);",
+							"    pm.expect(jsonData.payload.items[1].command.action.note).to.be.eql(\"купить молоко\");",
+							"    pm.expect(jsonData.payload.items[1].command.action.type).to.be.eql(\"add_note\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"postman.setNextRequest('add_note_3')"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"messageId\": 1611562102786,\n    \"sessionId\": \"{{sessionId}}\",\n    \"messageName\": \"MESSAGE_TO_SKILL\",\n    \"payload\": {\n        \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n        \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n        \"projectName\": \"6a7ee05c-cc47-4681-82ee-83ca1cb083d2\",\n        \"intent\": \"run_app\",\n        \"original_intent\": \"popcorn\",\n        \"intent_meta\": {},\n        \"message\": {\n            \"original_text\": \"Запиши купить молоко\",\n            \"normalized_text\": \"записать купить молоко .\",\n            \"tokenized_elements_list\": [\n                {\n                    \"text\": \"Запиши\",\n                    \"raw_text\": \"Запиши\",\n                    \"grammem_info\": {\n                        \"aspect\": \"perf\",\n                        \"mood\": \"imp\",\n                        \"number\": \"sing\",\n                        \"person\": \"2\",\n                        \"transitivity\": \"tran\",\n                        \"verbform\": \"fin\",\n                        \"voice\": \"act\",\n                        \"raw_gram_info\": \"aspect=perf|mood=imp|number=sing|person=2|transitivity=tran|verbform=fin|voice=act\",\n                        \"part_of_speech\": \"VERB\"\n                    },\n                    \"lemma\": \"записать\",\n                    \"is_stop_word\": false,\n                    \"list_of_dependents\": [\n                        2\n                    ],\n                    \"dependency_type\": \"root\",\n                    \"head\": 0\n                },\n                {\n                    \"text\": \"купить\",\n                    \"raw_text\": \"купить\",\n                    \"grammem_info\": {\n                        \"aspect\": \"perf\",\n                        \"transitivity\": \"tran\",\n                        \"verbform\": \"inf\",\n                        \"raw_gram_info\": \"aspect=perf|transitivity=tran|verbform=inf\",\n                        \"part_of_speech\": \"VERB\"\n                    },\n                    \"lemma\": \"купить\",\n                    \"is_stop_word\": false,\n                    \"list_of_dependents\": [\n                        3\n                    ],\n                    \"dependency_type\": \"xcomp\",\n                    \"head\": 1\n                },\n                {\n                    \"text\": \"молоко\",\n                    \"raw_text\": \"молоко\",\n                    \"grammem_info\": {\n                        \"animacy\": \"inan\",\n                        \"case\": \"acc\",\n                        \"gender\": \"neut\",\n                        \"number\": \"sing\",\n                        \"raw_gram_info\": \"animacy=inan|case=acc|gender=neut|number=sing\",\n                        \"part_of_speech\": \"NOUN\"\n                    },\n                    \"lemma\": \"молоко\",\n                    \"is_stop_word\": false,\n                    \"list_of_dependents\": [],\n                    \"dependency_type\": \"obj\",\n                    \"head\": 2\n                },\n                {\n                    \"raw_text\": \".\",\n                    \"text\": \".\",\n                    \"lemma\": \".\",\n                    \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n                    \"token_value\": {\n                        \"value\": \".\"\n                    },\n                    \"list_of_token_types_data\": [\n                        {\n                            \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n                            \"token_value\": {\n                                \"value\": \".\"\n                            }\n                        }\n                    ]\n                }\n            ],\n            \"entities\": {},\n            \"original_message_name\": \"MESSAGE_FROM_USER\",\n            \"human_normalized_text\": \"записать купить молоко\",\n            \"human_normalized_text_with_anaphora\": \"записать купить молоко\"\n        },\n        \"device\": {\n            \"platformType\": \"WEBDBG\",\n            \"platformVersion\": \"1.0\",\n            \"surface\": \"SBERBOX\",\n            \"surfaceVersion\": \"20.09.1.3576\",\n            \"features\": {\n                \"appTypes\": [\n                    \"DIALOG\",\n                    \"WEB_APP\"\n                ]\n            },\n            \"capabilities\": {\n                \"screen\": {\n                    \"available\": true,\n                    \"height\": 804,\n                    \"width\": 1440\n                },\n                \"speak\": {\n                    \"available\": true\n                }\n            },\n            \"deviceId\": \"\",\n            \"deviceManufacturer\": \"\",\n            \"deviceModel\": \"\",\n            \"additionalInfo\": {\n                \"host_app_id\": \"ru.sberbank.sdakit.demo\",\n                \"sdk_version\": \"20.09.1.3576\"\n            }\n        },\n        \"app_info\": {\n            \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n            \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n            \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n            \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n            \"frontendType\": \"WEB_APP\"\n        },\n        \"annotations\": {\n            \"censor_data\": {\n                \"classes\": [\n                    \"politicians\",\n                    \"obscene\",\n                    \"model_response\"\n                ],\n                \"probas\": [\n                    0,\n                    0,\n                    0.004637089557945728\n                ]\n            },\n            \"text_sentiment\": {\n                \"classes\": [\n                    \"negative\",\n                    \"positive\",\n                    \"neutral\"\n                ],\n                \"probas\": [\n                    0.000007803771950420924,\n                    5.919863666110914e-13,\n                    0.9999922513961792\n                ]\n            },\n            \"asr_sentiment\": {\n                \"classes\": [],\n                \"probas\": []\n            }\n        },\n        \"selected_item\": {},\n        \"new_session\": false,\n        \"strategies\": {},\n        \"character\": {{character}},\n        \"meta\": {\n            \"current_app\": {\n                \"app_info\": {\n                    \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n                    \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n                    \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n                    \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n                    \"frontendType\": \"WEB_APP\",\n                    \"frontendStateId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e_7e4562d7-6313-408b-895f-a7b381393d3d_e33fe593-dcb4-402f-a626-15394d96115f\"\n                },\n                \"state\": {\n                    \"item_selector\": {\n                        \"items\": [\n                            {\n                                \"number\": 1,\n                                \"id\": \"p1s28o\",\n                                \"title\": \"сходить в магазин\"\n                            }\n                        ]\n                    }\n                }\n            },\n            \"time\": {}\n        },\n        \"asr\": {},\n        \"client_profile\": {}\n    },\n    \"uuid\": {\n        \"userId\": \"{{userId}}\",\n        \"sub\": \"bskfAL5MGufzEN1jtRkb0M86QW/OgCJQWB7AMIfF7L/p5RvUK+rZ7vDrGSIXfKb27SUl5D2j7Hxp8XCCyNrj5petX2ctNCge9CCAZsQndriOXBwL2ymVMkCt8ocHrvzqNNgLw/nayKFbXv/cXWwTF71Pbx11KTf/MlHpFgYYLg4=\",\n        \"userChannel\": \"B2C\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{webhook}}",
+					"host": [
+						"{{webhook}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add_note_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Добавь посмотреть фильм\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.payload.pronounceText).to.oneOf([\"Добавлено!\", \"Сохранено!\", \"Записано!\"]);",
+							"    pm.expect(jsonData.payload.items[0].bubble.text).to.oneOf([\"Добавлено!\", \"Сохранено!\", \"Записано!\"]);",
+							"    pm.expect(jsonData.payload.items[1].command.action.note).to.be.eql(\"посмотреть фильм\");",
+							"    pm.expect(jsonData.payload.items[1].command.action.type).to.be.eql(\"add_note\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"postman.setNextRequest(\"delete_node_text\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"messageId\": 1611562102792,\n    \"sessionId\": \"{{sessionId}}\",\n    \"messageName\": \"MESSAGE_TO_SKILL\",\n    \"payload\": {\n        \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n        \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n        \"projectName\": \"6a7ee05c-cc47-4681-82ee-83ca1cb083d2\",\n        \"intent\": \"run_app\",\n        \"original_intent\": \"None\",\n        \"intent_meta\": {},\n        \"message\": {\n            \"original_text\": \"добавь посмотреть фильм\",\n            \"normalized_text\": \"добавить посмотреть фильм .\",\n            \"tokenized_elements_list\": [\n                {\n                    \"text\": \"добавь\",\n                    \"raw_text\": \"добавь\",\n                    \"grammem_info\": {\n                        \"aspect\": \"perf\",\n                        \"mood\": \"imp\",\n                        \"number\": \"sing\",\n                        \"person\": \"2\",\n                        \"transitivity\": \"tran\",\n                        \"verbform\": \"fin\",\n                        \"voice\": \"act\",\n                        \"raw_gram_info\": \"aspect=perf|mood=imp|number=sing|person=2|transitivity=tran|verbform=fin|voice=act\",\n                        \"part_of_speech\": \"VERB\"\n                    },\n                    \"lemma\": \"добавить\",\n                    \"is_stop_word\": false,\n                    \"list_of_dependents\": [\n                        2\n                    ],\n                    \"dependency_type\": \"root\",\n                    \"head\": 0\n                },\n                {\n                    \"text\": \"посмотреть\",\n                    \"raw_text\": \"посмотреть\",\n                    \"grammem_info\": {\n                        \"aspect\": \"perf\",\n                        \"transitivity\": \"tran\",\n                        \"verbform\": \"inf\",\n                        \"raw_gram_info\": \"aspect=perf|transitivity=tran|verbform=inf\",\n                        \"part_of_speech\": \"VERB\"\n                    },\n                    \"lemma\": \"посмотреть\",\n                    \"is_stop_word\": false,\n                    \"list_of_dependents\": [\n                        3\n                    ],\n                    \"dependency_type\": \"xcomp\",\n                    \"head\": 1\n                },\n                {\n                    \"text\": \"фильм\",\n                    \"raw_text\": \"фильм\",\n                    \"grammem_info\": {\n                        \"animacy\": \"inan\",\n                        \"case\": \"acc\",\n                        \"gender\": \"masc\",\n                        \"number\": \"sing\",\n                        \"raw_gram_info\": \"animacy=inan|case=acc|gender=masc|number=sing\",\n                        \"part_of_speech\": \"NOUN\"\n                    },\n                    \"lemma\": \"фильм\",\n                    \"is_stop_word\": false,\n                    \"list_of_dependents\": [],\n                    \"dependency_type\": \"obj\",\n                    \"head\": 2\n                },\n                {\n                    \"raw_text\": \".\",\n                    \"text\": \".\",\n                    \"lemma\": \".\",\n                    \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n                    \"token_value\": {\n                        \"value\": \".\"\n                    },\n                    \"list_of_token_types_data\": [\n                        {\n                            \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n                            \"token_value\": {\n                                \"value\": \".\"\n                            }\n                        }\n                    ]\n                }\n            ],\n            \"entities\": {},\n            \"original_message_name\": \"MESSAGE_FROM_USER\",\n            \"human_normalized_text\": \"добавить посмотреть фильм\",\n            \"human_normalized_text_with_anaphora\": \"добавить посмотреть фильм\"\n        },\n        \"device\": {\n            \"platformType\": \"WEBDBG\",\n            \"platformVersion\": \"1.0\",\n            \"surface\": \"SBERBOX\",\n            \"surfaceVersion\": \"20.09.1.3576\",\n            \"features\": {\n                \"appTypes\": [\n                    \"DIALOG\",\n                    \"WEB_APP\"\n                ]\n            },\n            \"capabilities\": {\n                \"screen\": {\n                    \"available\": true,\n                    \"height\": 804,\n                    \"width\": 1440\n                },\n                \"speak\": {\n                    \"available\": true\n                }\n            },\n            \"deviceId\": \"\",\n            \"deviceManufacturer\": \"\",\n            \"deviceModel\": \"\",\n            \"additionalInfo\": {\n                \"host_app_id\": \"ru.sberbank.sdakit.demo\",\n                \"sdk_version\": \"20.09.1.3576\"\n            }\n        },\n        \"app_info\": {\n            \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n            \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n            \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n            \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n            \"frontendType\": \"WEB_APP\"\n        },\n        \"annotations\": {\n            \"censor_data\": {\n                \"classes\": [\n                    \"politicians\",\n                    \"obscene\",\n                    \"model_response\"\n                ],\n                \"probas\": [\n                    0,\n                    0,\n                    0.0031214577611535788\n                ]\n            },\n            \"text_sentiment\": {\n                \"classes\": [\n                    \"negative\",\n                    \"positive\",\n                    \"neutral\"\n                ],\n                \"probas\": [\n                    2.2514375802655367e-23,\n                    3.179473348032865e-37,\n                    1\n                ]\n            },\n            \"asr_sentiment\": {\n                \"classes\": [],\n                \"probas\": []\n            }\n        },\n        \"selected_item\": {},\n        \"new_session\": false,\n        \"strategies\": {},\n        \"character\": {{character}},\n        \"meta\": {\n            \"current_app\": {\n                \"app_info\": {\n                    \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n                    \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n                    \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n                    \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n                    \"frontendType\": \"WEB_APP\",\n                    \"frontendStateId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e_7e4562d7-6313-408b-895f-a7b381393d3d_e33fe593-dcb4-402f-a626-15394d96115f\"\n                },\n                \"state\": {\n                    \"item_selector\": {\n                        \"items\": [\n                            {\n                                \"number\": 1,\n                                \"id\": \"p1s28o\",\n                                \"title\": \"сходить в магазин\"\n                            },\n                            {\n                                \"number\": 2,\n                                \"id\": \"l6naiv\",\n                                \"title\": \"купить молоко\"\n                            }\n                        ]\n                    }\n                }\n            },\n            \"time\": {}\n        },\n        \"asr\": {},\n        \"client_profile\": {}\n    },\n    \"uuid\": {\n        \"userChannel\": \"B2C\",\n        \"userId\": \"{{userId}}\",\n        \"sub\": \"bskfAL5MGufzEN1jtRkb0M86QW/OgCJQWB7AMIfF7L/p5RvUK+rZ7vDrGSIXfKb27SUl5D2j7Hxp8XCCyNrj5petX2ctNCge9CCAZsQndriOXBwL2ymVMkCt8ocHrvzqNNgLw/nayKFbXv/cXWwTF71Pbx11KTf/MlHpFgYYLg4=\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{webhook}}",
+					"host": [
+						"{{webhook}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_node_text",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Удали купить молоко\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.payload.items[0].command.action.id).to.be.eql(\"l6naiv\");",
+							"    pm.expect(jsonData.payload.items[0].command.action.type).to.be.eql(\"delete_note\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"postman.setNextRequest(\"do_note_number\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"messageId\": 1611562102805,\n  \"sessionId\": \"{{sessionId}}\",\n  \"messageName\": \"MESSAGE_TO_SKILL\",\n  \"payload\": {\n    \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n    \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n    \"projectName\": \"6a7ee05c-cc47-4681-82ee-83ca1cb083d2\",\n    \"intent\": \"item_selector\",\n    \"original_intent\": \"item_selector\",\n    \"intent_meta\": null,\n    \"message\": {\n      \"original_text\": \"удали купить молоко\",\n      \"normalized_text\": \"удалить купить молоко .\",\n      \"tokenized_elements_list\": [\n        {\n          \"text\": \"удали\",\n          \"raw_text\": \"удали\",\n          \"grammem_info\": {\n            \"aspect\": \"perf\",\n            \"mood\": \"ind\",\n            \"number\": \"plur\",\n            \"tense\": \"past\",\n            \"transitivity\": \"tran\",\n            \"verbform\": \"fin\",\n            \"voice\": \"act\",\n            \"raw_gram_info\": \"aspect=perf|mood=ind|number=plur|tense=past|transitivity=tran|verbform=fin|voice=act\",\n            \"part_of_speech\": \"VERB\"\n          },\n          \"lemma\": \"удалить\",\n          \"is_stop_word\": false,\n          \"list_of_dependents\": [\n            2\n          ],\n          \"dependency_type\": \"root\",\n          \"head\": 0\n        },\n        {\n          \"text\": \"купить\",\n          \"raw_text\": \"купить\",\n          \"grammem_info\": {\n            \"aspect\": \"perf\",\n            \"transitivity\": \"tran\",\n            \"verbform\": \"inf\",\n            \"raw_gram_info\": \"aspect=perf|transitivity=tran|verbform=inf\",\n            \"part_of_speech\": \"VERB\"\n          },\n          \"lemma\": \"купить\",\n          \"is_stop_word\": false,\n          \"list_of_dependents\": [\n            3\n          ],\n          \"dependency_type\": \"xcomp\",\n          \"head\": 1\n        },\n        {\n          \"text\": \"молоко\",\n          \"raw_text\": \"молоко\",\n          \"grammem_info\": {\n            \"animacy\": \"inan\",\n            \"case\": \"acc\",\n            \"gender\": \"neut\",\n            \"number\": \"sing\",\n            \"raw_gram_info\": \"animacy=inan|case=acc|gender=neut|number=sing\",\n            \"part_of_speech\": \"NOUN\"\n          },\n          \"lemma\": \"молоко\",\n          \"is_stop_word\": false,\n          \"list_of_dependents\": [],\n          \"dependency_type\": \"obj\",\n          \"head\": 2\n        },\n        {\n          \"raw_text\": \".\",\n          \"text\": \".\",\n          \"lemma\": \".\",\n          \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n          \"token_value\": {\n            \"value\": \".\"\n          },\n          \"list_of_token_types_data\": [\n            {\n              \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n              \"token_value\": {\n                \"value\": \".\"\n              }\n            }\n          ]\n        }\n      ],\n      \"entities\": {},\n      \"original_message_name\": \"MESSAGE_FROM_USER\",\n      \"human_normalized_text\": \"удалить купить молоко\",\n      \"asr_normalized_message\": null,\n      \"human_normalized_text_with_anaphora\": \"удалить купить молоко\"\n    },\n    \"device\": {\n      \"platformType\": \"WEBDBG\",\n      \"platformVersion\": \"1.0\",\n      \"surface\": \"SBERBOX\",\n      \"surfaceVersion\": \"20.09.1.3576\",\n      \"features\": {\n        \"appTypes\": [\n          \"DIALOG\",\n          \"WEB_APP\"\n        ]\n      },\n      \"capabilities\": {\n        \"screen\": {\n          \"available\": true,\n          \"height\": 804,\n          \"width\": 1440\n        },\n        \"speak\": {\n          \"available\": true\n        }\n      },\n      \"deviceId\": \"\",\n      \"deviceManufacturer\": \"\",\n      \"deviceModel\": \"\",\n      \"additionalInfo\": {\n        \"host_app_id\": \"ru.sberbank.sdakit.demo\",\n        \"sdk_version\": \"20.09.1.3576\"\n      }\n    },\n    \"app_info\": {\n      \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n      \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n      \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n      \"systemName\": null,\n      \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n      \"frontendType\": \"WEB_APP\"\n    },\n    \"annotations\": {\n      \"censor_data\": {\n        \"classes\": [\n          \"politicians\",\n          \"obscene\",\n          \"model_response\"\n        ],\n        \"probas\": [\n          0,\n          0,\n          0.2006767839193344\n        ]\n      },\n      \"text_sentiment\": {\n        \"classes\": [\n          \"negative\",\n          \"positive\",\n          \"neutral\"\n        ],\n        \"probas\": [\n          0.00010665551963029429,\n          5.734785424316158e-10,\n          0.999893307685852\n        ]\n      },\n      \"asr_sentiment\": {\n        \"classes\": [],\n        \"probas\": []\n      }\n    },\n    \"selected_item\": {\n      \"index\": 1,\n      \"title\": \"купить молоко\",\n      \"is_query_by_number\": false\n    },\n    \"new_session\": false,\n    \"strategies\": {\n      \"last_call\": null\n    },\n    \"character\": {{character}},\n    \"meta\": {\n      \"current_app\": {\n        \"app_info\": {\n          \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n          \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n          \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n          \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n          \"frontendType\": \"WEB_APP\",\n          \"frontendStateId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e_7e4562d7-6313-408b-895f-a7b381393d3d_e33fe593-dcb4-402f-a626-15394d96115f\"\n        },\n        \"state\": {\n          \"item_selector\": {\n            \"items\": [\n              {\n                \"number\": 1,\n                \"id\": \"p1s28o\",\n                \"title\": \"сходить в магазин\"\n              },\n              {\n                \"number\": 2,\n                \"id\": \"l6naiv\",\n                \"title\": \"купить молоко\"\n              },\n              {\n                \"number\": 3,\n                \"id\": \"g6iut\",\n                \"title\": \"посмотреть фильм\"\n              }\n            ]\n          }\n        }\n      },\n      \"time\": {}\n    },\n    \"asr\": {},\n    \"client_profile\": {}\n  },\n  \"uuid\": {\n    \"userChannel\": \"B2C\",\n    \"userId\": \"{{userId}}\",\n    \"sub\": \"bskfAL5MGufzEN1jtRkb0M86QW/OgCJQWB7AMIfF7L/p5RvUK+rZ7vDrGSIXfKb27SUl5D2j7Hxp8XCCyNrj5petX2ctNCge9CCAZsQndriOXBwL2ymVMkCt8ocHrvzqNNgLw/nayKFbXv/cXWwTF71Pbx11KTf/MlHpFgYYLg4=\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{webhook}}",
+					"host": [
+						"{{webhook}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "do_note_number",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Я выполнил номер 1\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.payload.items[1].command.action.id).to.be.eql(\"p1s28o\");",
+							"    pm.expect(jsonData.payload.items[1].command.action.type).to.be.eql(\"done_note\");",
+							"    pm.expect(jsonData.payload.pronounceText).to.oneOf([\"Молодец!\", \"Красавчик!\", \"Супер!\"]);",
+							"    pm.expect(jsonData.payload.items[0].bubble.text).to.oneOf([\"Молодец!\", \"Красавчик!\", \"Супер!\"]);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"postman.setNextRequest(\"do_note_text\")"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"messageId\": 1611562102815,\n  \"sessionId\": \"{{sessionId}}\",\n  \"messageName\": \"MESSAGE_TO_SKILL\",\n  \"payload\": {\n    \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n    \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n    \"projectName\": \"6a7ee05c-cc47-4681-82ee-83ca1cb083d2\",\n    \"intent\": \"run_app\",\n    \"original_intent\": \"run_app\",\n    \"intent_meta\": null,\n    \"message\": {\n      \"original_text\": \"я выполнил номер 1\",\n      \"normalized_text\": \"я выполнить номер NUM_TOKEN .\",\n      \"tokenized_elements_list\": [\n        {\n          \"text\": \"я\",\n          \"raw_text\": \"я\",\n          \"grammem_info\": {\n            \"case\": \"nom\",\n            \"number\": \"sing\",\n            \"person\": \"1\",\n            \"raw_gram_info\": \"case=nom|number=sing|person=1\",\n            \"part_of_speech\": \"PRON\"\n          },\n          \"lemma\": \"я\",\n          \"is_stop_word\": false,\n          \"list_of_dependents\": [],\n          \"dependency_type\": \"nsubj\",\n          \"head\": 2\n        },\n        {\n          \"text\": \"выполнил\",\n          \"raw_text\": \"выполнил\",\n          \"grammem_info\": {\n            \"aspect\": \"perf\",\n            \"gender\": \"masc\",\n            \"mood\": \"ind\",\n            \"number\": \"sing\",\n            \"tense\": \"past\",\n            \"transitivity\": \"tran\",\n            \"verbform\": \"fin\",\n            \"voice\": \"act\",\n            \"raw_gram_info\": \"aspect=perf|gender=masc|mood=ind|number=sing|tense=past|transitivity=tran|verbform=fin|voice=act\",\n            \"part_of_speech\": \"VERB\"\n          },\n          \"lemma\": \"выполнить\",\n          \"is_stop_word\": false,\n          \"list_of_dependents\": [\n            1,\n            3\n          ],\n          \"dependency_type\": \"root\",\n          \"head\": 0\n        },\n        {\n          \"text\": \"номер\",\n          \"raw_text\": \"номер\",\n          \"grammem_info\": {\n            \"animacy\": \"inan\",\n            \"case\": \"acc\",\n            \"gender\": \"masc\",\n            \"number\": \"sing\",\n            \"raw_gram_info\": \"animacy=inan|case=acc|gender=masc|number=sing\",\n            \"part_of_speech\": \"NOUN\"\n          },\n          \"lemma\": \"номер\",\n          \"is_stop_word\": false,\n          \"list_of_dependents\": [\n            4\n          ],\n          \"dependency_type\": \"iobj\",\n          \"head\": 2\n        },\n        {\n          \"text\": \"1\",\n          \"raw_text\": \"1\",\n          \"lemma\": \"1\",\n          \"original_text\": \"1\",\n          \"token_type\": \"NUM_TOKEN\",\n          \"token_value\": {\n            \"value\": 1,\n            \"adjectival_number\": false\n          },\n          \"list_of_token_types_data\": [\n            {\n              \"token_type\": \"NUM_TOKEN\",\n              \"token_value\": {\n                \"value\": 1,\n                \"adjectival_number\": false\n              }\n            }\n          ],\n          \"grammem_info\": {\n            \"numform\": \"digit\",\n            \"raw_gram_info\": \"numform=digit\",\n            \"part_of_speech\": \"NUM\"\n          },\n          \"is_stop_word\": false,\n          \"list_of_dependents\": [],\n          \"dependency_type\": \"nummod\",\n          \"head\": 3\n        },\n        {\n          \"raw_text\": \".\",\n          \"text\": \".\",\n          \"lemma\": \".\",\n          \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n          \"token_value\": {\n            \"value\": \".\"\n          },\n          \"list_of_token_types_data\": [\n            {\n              \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n              \"token_value\": {\n                \"value\": \".\"\n              }\n            }\n          ]\n        }\n      ],\n      \"entities\": {\n        \"NUM_TOKEN\": [\n          {\n            \"value\": 1,\n            \"adjectival_number\": false\n          }\n        ]\n      },\n      \"original_message_name\": \"MESSAGE_FROM_USER\",\n      \"human_normalized_text\": \"я выполнить номер 1\",\n      \"asr_normalized_message\": null,\n      \"human_normalized_text_with_anaphora\": \"я выполнить номер 1\"\n    },\n    \"device\": {\n      \"platformType\": \"WEBDBG\",\n      \"platformVersion\": \"1.0\",\n      \"surface\": \"SBERBOX\",\n      \"surfaceVersion\": \"20.09.1.3576\",\n      \"features\": {\n        \"appTypes\": [\n          \"DIALOG\",\n          \"WEB_APP\"\n        ]\n      },\n      \"capabilities\": {\n        \"screen\": {\n          \"available\": true,\n          \"height\": 804,\n          \"width\": 1440\n        },\n        \"speak\": {\n          \"available\": true\n        }\n      },\n      \"deviceId\": \"\",\n      \"deviceManufacturer\": \"\",\n      \"deviceModel\": \"\",\n      \"additionalInfo\": {\n        \"host_app_id\": \"ru.sberbank.sdakit.demo\",\n        \"sdk_version\": \"20.09.1.3576\"\n      }\n    },\n    \"app_info\": {\n      \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n      \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n      \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n      \"systemName\": null,\n      \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n      \"frontendType\": \"WEB_APP\"\n    },\n    \"annotations\": {\n      \"censor_data\": {\n        \"classes\": [\n          \"politicians\",\n          \"obscene\",\n          \"model_response\"\n        ],\n        \"probas\": [\n          0,\n          0,\n          0.0014370065182447433\n        ]\n      },\n      \"text_sentiment\": {\n        \"classes\": [\n          \"negative\",\n          \"positive\",\n          \"neutral\"\n        ],\n        \"probas\": [\n          0.0000011460572295618476,\n          0.005148599855601788,\n          0.994850218296051\n        ]\n      },\n      \"asr_sentiment\": {\n        \"classes\": [],\n        \"probas\": []\n      }\n    },\n    \"selected_item\": {},\n    \"new_session\": false,\n    \"strategies\": {\n      \"last_call\": null\n    },\n    \"character\": {{character}},\n    \"meta\": {\n      \"current_app\": {\n        \"app_info\": {\n          \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n          \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n          \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n          \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n          \"frontendType\": \"WEB_APP\",\n          \"frontendStateId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e_7e4562d7-6313-408b-895f-a7b381393d3d_e33fe593-dcb4-402f-a626-15394d96115f\"\n        },\n        \"state\": {\n          \"item_selector\": {\n            \"items\": [\n              {\n                \"number\": 1,\n                \"id\": \"p1s28o\",\n                \"title\": \"сходить в магазин\"\n              },\n              {\n                \"number\": 2,\n                \"id\": \"g6iut\",\n                \"title\": \"посмотреть фильм\"\n              }\n            ]\n          }\n        }\n      },\n      \"time\": {}\n    },\n    \"asr\": {},\n    \"client_profile\": {}\n  },\n  \"uuid\": {\n    \"userChannel\": \"B2C\",\n    \"userId\": \"{{userId}}\",\n    \"sub\": \"bskfAL5MGufzEN1jtRkb0M86QW/OgCJQWB7AMIfF7L/p5RvUK+rZ7vDrGSIXfKb27SUl5D2j7Hxp8XCCyNrj5petX2ctNCge9CCAZsQndriOXBwL2ymVMkCt8ocHrvzqNNgLw/nayKFbXv/cXWwTF71Pbx11KTf/MlHpFgYYLg4=\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{webhook}}",
+					"host": [
+						"{{webhook}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "do_note_text",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Я выполнил посмотреть фильм\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.payload.items[1].command.action.id).to.be.eql(\"g6iut\");",
+							"    pm.expect(jsonData.payload.items[1].command.action.type).to.be.eql(\"done_note\");",
+							"    pm.expect(jsonData.payload.pronounceText).to.oneOf([\"Молодец!\", \"Красавчик!\", \"Супер!\"]);",
+							"    pm.expect(jsonData.payload.items[0].bubble.text).to.oneOf([\"Молодец!\", \"Красавчик!\", \"Супер!\"]);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"postman.setNextRequest(\"delete_node_number\") ",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"messageId\": 1611562102828,\n  \"sessionId\": \"{{sessionId}}\",\n  \"messageName\": \"MESSAGE_TO_SKILL\",\n  \"payload\": {\n    \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n    \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n    \"projectName\": \"6a7ee05c-cc47-4681-82ee-83ca1cb083d2\",\n    \"intent\": \"item_selector\",\n    \"original_intent\": \"item_selector\",\n    \"intent_meta\": null,\n    \"message\": {\n      \"original_text\": \"я выполнил посмотреть фильм\",\n      \"normalized_text\": \"я выполнить посмотреть фильм .\",\n      \"tokenized_elements_list\": [\n        {\n          \"text\": \"я\",\n          \"raw_text\": \"я\",\n          \"grammem_info\": {\n            \"case\": \"nom\",\n            \"number\": \"sing\",\n            \"person\": \"1\",\n            \"raw_gram_info\": \"case=nom|number=sing|person=1\",\n            \"part_of_speech\": \"PRON\"\n          },\n          \"lemma\": \"я\",\n          \"is_stop_word\": false,\n          \"list_of_dependents\": [],\n          \"dependency_type\": \"nsubj\",\n          \"head\": 2\n        },\n        {\n          \"text\": \"выполнил\",\n          \"raw_text\": \"выполнил\",\n          \"grammem_info\": {\n            \"aspect\": \"perf\",\n            \"gender\": \"masc\",\n            \"mood\": \"ind\",\n            \"number\": \"sing\",\n            \"tense\": \"past\",\n            \"transitivity\": \"tran\",\n            \"verbform\": \"fin\",\n            \"voice\": \"act\",\n            \"raw_gram_info\": \"aspect=perf|gender=masc|mood=ind|number=sing|tense=past|transitivity=tran|verbform=fin|voice=act\",\n            \"part_of_speech\": \"VERB\"\n          },\n          \"lemma\": \"выполнить\",\n          \"is_stop_word\": false,\n          \"list_of_dependents\": [\n            1,\n            3\n          ],\n          \"dependency_type\": \"root\",\n          \"head\": 0\n        },\n        {\n          \"text\": \"посмотреть\",\n          \"raw_text\": \"посмотреть\",\n          \"grammem_info\": {\n            \"aspect\": \"perf\",\n            \"transitivity\": \"tran\",\n            \"verbform\": \"inf\",\n            \"raw_gram_info\": \"aspect=perf|transitivity=tran|verbform=inf\",\n            \"part_of_speech\": \"VERB\"\n          },\n          \"lemma\": \"посмотреть\",\n          \"is_stop_word\": false,\n          \"list_of_dependents\": [\n            4\n          ],\n          \"dependency_type\": \"xcomp\",\n          \"head\": 2\n        },\n        {\n          \"text\": \"фильм\",\n          \"raw_text\": \"фильм\",\n          \"grammem_info\": {\n            \"animacy\": \"inan\",\n            \"case\": \"acc\",\n            \"gender\": \"masc\",\n            \"number\": \"sing\",\n            \"raw_gram_info\": \"animacy=inan|case=acc|gender=masc|number=sing\",\n            \"part_of_speech\": \"NOUN\"\n          },\n          \"lemma\": \"фильм\",\n          \"is_stop_word\": false,\n          \"list_of_dependents\": [],\n          \"dependency_type\": \"obj\",\n          \"head\": 3\n        },\n        {\n          \"raw_text\": \".\",\n          \"text\": \".\",\n          \"lemma\": \".\",\n          \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n          \"token_value\": {\n            \"value\": \".\"\n          },\n          \"list_of_token_types_data\": [\n            {\n              \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n              \"token_value\": {\n                \"value\": \".\"\n              }\n            }\n          ]\n        }\n      ],\n      \"entities\": {},\n      \"original_message_name\": \"MESSAGE_FROM_USER\",\n      \"human_normalized_text\": \"я выполнить посмотреть фильм\",\n      \"asr_normalized_message\": null,\n      \"human_normalized_text_with_anaphora\": \"я выполнить посмотреть фильм\"\n    },\n    \"device\": {\n      \"platformType\": \"WEBDBG\",\n      \"platformVersion\": \"1.0\",\n      \"surface\": \"SBERBOX\",\n      \"surfaceVersion\": \"20.09.1.3576\",\n      \"features\": {\n        \"appTypes\": [\n          \"DIALOG\",\n          \"WEB_APP\"\n        ]\n      },\n      \"capabilities\": {\n        \"screen\": {\n          \"available\": true,\n          \"height\": 804,\n          \"width\": 1440\n        },\n        \"speak\": {\n          \"available\": true\n        }\n      },\n      \"deviceId\": \"\",\n      \"deviceManufacturer\": \"\",\n      \"deviceModel\": \"\",\n      \"additionalInfo\": {\n        \"host_app_id\": \"ru.sberbank.sdakit.demo\",\n        \"sdk_version\": \"20.09.1.3576\"\n      }\n    },\n    \"app_info\": {\n      \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n      \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n      \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n      \"systemName\": null,\n      \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n      \"frontendType\": \"WEB_APP\"\n    },\n    \"annotations\": {\n      \"censor_data\": {\n        \"classes\": [\n          \"politicians\",\n          \"obscene\",\n          \"model_response\"\n        ],\n        \"probas\": [\n          0,\n          0,\n          0.0005679213209077716\n        ]\n      },\n      \"text_sentiment\": {\n        \"classes\": [\n          \"negative\",\n          \"positive\",\n          \"neutral\"\n        ],\n        \"probas\": [\n          1.5141196740842133e-7,\n          6.6149667965476056e-9,\n          0.9999998807907104\n        ]\n      },\n      \"asr_sentiment\": {\n        \"classes\": [],\n        \"probas\": []\n      }\n    },\n    \"selected_item\": {\n      \"index\": 1,\n      \"title\": \"посмотреть фильм\",\n      \"is_query_by_number\": false\n    },\n    \"new_session\": false,\n    \"strategies\": {\n      \"last_call\": null\n    },\n    \"character\": {{character}},\n    \"meta\": {\n      \"current_app\": {\n        \"app_info\": {\n          \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n          \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n          \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n          \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n          \"frontendType\": \"WEB_APP\",\n          \"frontendStateId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e_7e4562d7-6313-408b-895f-a7b381393d3d_e33fe593-dcb4-402f-a626-15394d96115f\"\n        },\n        \"state\": {\n          \"item_selector\": {\n            \"items\": [\n              {\n                \"number\": 1,\n                \"id\": \"p1s28o\",\n                \"title\": \"сходить в магазин\"\n              },\n              {\n                \"number\": 2,\n                \"id\": \"g6iut\",\n                \"title\": \"посмотреть фильм\"\n              }\n            ]\n          }\n        }\n      },\n      \"time\": {}\n    },\n    \"asr\": {},\n    \"client_profile\": {}\n  },\n  \"uuid\": {\n    \"userChannel\": \"B2C\",\n    \"userId\": \"{{userId}}\",\n    \"sub\": \"bskfAL5MGufzEN1jtRkb0M86QW/OgCJQWB7AMIfF7L/p5RvUK+rZ7vDrGSIXfKb27SUl5D2j7Hxp8XCCyNrj5petX2ctNCge9CCAZsQndriOXBwL2ymVMkCt8ocHrvzqNNgLw/nayKFbXv/cXWwTF71Pbx11KTf/MlHpFgYYLg4=\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{webhook}}",
+					"host": [
+						"{{webhook}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_node_number",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Удали номер 2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.payload.items[0].command.action.id).to.be.eql(\"g6iut\");",
+							"    pm.expect(jsonData.payload.items[0].command.action.type).to.be.eql(\"delete_note\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var character = JSON.parse(pm.environment.get(\"character\"));",
+							"if (character.id == 'sber'){",
+							"    postman.setNextRequest(\"do_note_by_click_sber\") //setNextRequest does not affects by folders",
+							"}",
+							"else if (character.id == 'joy'){",
+							"    postman.setNextRequest(\"do_note_by_click_joy\") ",
+							"}",
+							"else {",
+							"    console.error('A test for other characters is not define')",
+							"    postman.setNextRequest(null)",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"messageId\": 1611562102926,\n  \"sessionId\": \"{{sessionId}}\",\n  \"messageName\": \"MESSAGE_TO_SKILL\",\n  \"payload\": {\n    \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n    \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n    \"projectName\": \"6a7ee05c-cc47-4681-82ee-83ca1cb083d2\",\n    \"intent\": \"None\",\n    \"original_intent\": \"player_next\",\n    \"intent_meta\": {},\n    \"message\": {\n      \"original_text\": \"удали номер 2\",\n      \"normalized_text\": \"удалить номер NUM_TOKEN .\",\n      \"tokenized_elements_list\": [\n        {\n          \"text\": \"удали\",\n          \"raw_text\": \"удали\",\n          \"grammem_info\": {\n            \"aspect\": \"perf\",\n            \"mood\": \"ind\",\n            \"number\": \"plur\",\n            \"tense\": \"past\",\n            \"transitivity\": \"tran\",\n            \"verbform\": \"fin\",\n            \"voice\": \"act\",\n            \"raw_gram_info\": \"aspect=perf|mood=ind|number=plur|tense=past|transitivity=tran|verbform=fin|voice=act\",\n            \"part_of_speech\": \"VERB\"\n          },\n          \"lemma\": \"удалить\",\n          \"is_stop_word\": false,\n          \"list_of_dependents\": [\n            2\n          ],\n          \"dependency_type\": \"root\",\n          \"head\": 0\n        },\n        {\n          \"text\": \"номер\",\n          \"raw_text\": \"номер\",\n          \"grammem_info\": {\n            \"animacy\": \"inan\",\n            \"case\": \"nom\",\n            \"gender\": \"masc\",\n            \"number\": \"sing\",\n            \"raw_gram_info\": \"animacy=inan|case=nom|gender=masc|number=sing\",\n            \"part_of_speech\": \"NOUN\"\n          },\n          \"lemma\": \"номер\",\n          \"is_stop_word\": false,\n          \"list_of_dependents\": [\n            3\n          ],\n          \"dependency_type\": \"iobj\",\n          \"head\": 1\n        },\n        {\n          \"text\": \"2\",\n          \"raw_text\": \"2\",\n          \"lemma\": \"2\",\n          \"original_text\": \"2\",\n          \"token_type\": \"NUM_TOKEN\",\n          \"token_value\": {\n            \"value\": 2,\n            \"adjectival_number\": false\n          },\n          \"list_of_token_types_data\": [\n            {\n              \"token_type\": \"NUM_TOKEN\",\n              \"token_value\": {\n                \"value\": 2,\n                \"adjectival_number\": false\n              }\n            }\n          ],\n          \"grammem_info\": {\n            \"numform\": \"digit\",\n            \"raw_gram_info\": \"numform=digit\",\n            \"part_of_speech\": \"NUM\"\n          },\n          \"is_stop_word\": false,\n          \"list_of_dependents\": [],\n          \"dependency_type\": \"nummod\",\n          \"head\": 2\n        },\n        {\n          \"raw_text\": \".\",\n          \"text\": \".\",\n          \"lemma\": \".\",\n          \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n          \"token_value\": {\n            \"value\": \".\"\n          },\n          \"list_of_token_types_data\": [\n            {\n              \"token_type\": \"SENTENCE_ENDPOINT_TOKEN\",\n              \"token_value\": {\n                \"value\": \".\"\n              }\n            }\n          ]\n        }\n      ],\n      \"entities\": {\n        \"NUM_TOKEN\": [\n          {\n            \"value\": 2,\n            \"adjectival_number\": false\n          }\n        ]\n      },\n      \"original_message_name\": \"MESSAGE_FROM_USER\",\n      \"human_normalized_text\": \"удалить номер 2\",\n      \"asr_normalized_message\": null,\n      \"human_normalized_text_with_anaphora\": \"удалить номер 2\"\n    },\n    \"device\": {\n      \"platformType\": \"WEBDBG\",\n      \"platformVersion\": \"1.0\",\n      \"surface\": \"SBERBOX\",\n      \"surfaceVersion\": \"20.09.1.3576\",\n      \"features\": {\n        \"appTypes\": [\n          \"DIALOG\",\n          \"WEB_APP\"\n        ]\n      },\n      \"capabilities\": {\n        \"screen\": {\n          \"available\": true,\n          \"height\": 804,\n          \"width\": 1440\n        },\n        \"speak\": {\n          \"available\": true\n        }\n      },\n      \"deviceId\": \"\",\n      \"deviceManufacturer\": \"\",\n      \"deviceModel\": \"\",\n      \"additionalInfo\": {\n        \"host_app_id\": \"ru.sberbank.sdakit.demo\",\n        \"sdk_version\": \"20.09.1.3576\"\n      }\n    },\n    \"app_info\": {\n      \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n      \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n      \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n      \"systemName\": null,\n      \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n      \"frontendType\": \"WEB_APP\"\n    },\n    \"annotations\": {\n      \"censor_data\": {\n        \"classes\": [\n          \"politicians\",\n          \"obscene\",\n          \"model_response\"\n        ],\n        \"probas\": [\n          0,\n          0,\n          0.1511276662349701\n        ]\n      },\n      \"text_sentiment\": {\n        \"classes\": [\n          \"negative\",\n          \"positive\",\n          \"neutral\"\n        ],\n        \"probas\": [\n          0.00022612347675021738,\n          3.6543665316024487e-10,\n          0.9997739195823669\n        ]\n      },\n      \"asr_sentiment\": {\n        \"classes\": [],\n        \"probas\": []\n      }\n    },\n    \"selected_item\": {},\n    \"new_session\": false,\n    \"strategies\": {\n      \"last_call\": null\n    },\n    \"character\": {{character}},\n    \"meta\": {\n      \"current_app\": {\n        \"app_info\": {\n          \"projectId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e\",\n          \"applicationId\": \"7e4562d7-6313-408b-895f-a7b381393d3d\",\n          \"appversionId\": \"e33fe593-dcb4-402f-a626-15394d96115f\",\n          \"frontendEndpoint\": \"https://e4c279eb033a.ngrok.io\",\n          \"frontendType\": \"WEB_APP\",\n          \"frontendStateId\": \"47e2637f-5b0b-4eb8-8ec0-7fcaba34674e_7e4562d7-6313-408b-895f-a7b381393d3d_e33fe593-dcb4-402f-a626-15394d96115f\"\n        },\n        \"state\": {\n          \"item_selector\": {\n            \"items\": [\n              {\n                \"number\": 1,\n                \"id\": \"p1s28o\",\n                \"title\": \"сходить в магазин\"\n              },\n              {\n                \"number\": 2,\n                \"id\": \"g6iut\",\n                \"title\": \"посмотреть фильм\"\n              }\n            ]\n          }\n        }\n      },\n      \"time\": {}\n    },\n    \"asr\": {},\n    \"client_profile\": {}\n  },\n  \"uuid\": {\n    \"userChannel\": \"B2C\",\n    \"userId\": \"{{userId}}\",\n    \"sub\": \"bskfAL5MGufzEN1jtRkb0M86QW/OgCJQWB7AMIfF7L/p5RvUK+rZ7vDrGSIXfKb27SUl5D2j7Hxp8XCCyNrj5petX2ctNCge9CCAZsQndriOXBwL2ymVMkCt8ocHrvzqNNgLw/nayKFbXv/cXWwTF71Pbx11KTf/MlHpFgYYLg4=\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{webhook}}",
+					"host": [
+						"{{webhook}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
