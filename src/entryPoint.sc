@@ -37,6 +37,7 @@ theme: /
             $projectName
         script:
             $temp.appeal = $request.rawRequest.payload.character.appeal;
+            $jsapi.cailaService.getCurrentClassifierToken();
         if: $temp.appeal == "official"
             a: Добро пожаловать в заметки! Чтобы добавить новую, просто скажите "Запомни" и  нужный текст.
         elseif: $temp.appeal == "no_official"
