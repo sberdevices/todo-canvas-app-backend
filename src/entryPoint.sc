@@ -36,7 +36,7 @@ theme: /
             [$repeat<$OpenSkipWords>] 
             $projectName
         script:
-            $jsapi.cailaService.getCurrentClassifierToken();
+            log($jsapi.cailaService.getCurrentClassifierToken());
             $temp.appeal = $request.rawRequest.payload.character.appeal;
             
         if: $temp.appeal == "official"
