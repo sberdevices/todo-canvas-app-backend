@@ -35,8 +35,16 @@ theme: /
             $repeat<$OpenKeyWords>
             [$repeat<$OpenSkipWords>] 
             $projectName
+        script:
+            log($jsapi.cailaService.getCurrentClassifierToken());
+            $temp.appeal = $request.rawRequest.payload.character.appeal;
             
-        a: Начнём!
+        if: $temp.appeal == "official"
+            a: Добро пожаловать в заметки! Чтобы добавить новую, просто скажите "Запомни" и  нужный текст.
+        elseif: $temp.appeal == "no_official"
+            a: Добро пожаловать в заметки! Чтобы добавить новую, просто скажи "Запомни" и  нужный текст.
+        else:
+            a: Добро пожаловать в заметки!
 
 
     state: Fallback
