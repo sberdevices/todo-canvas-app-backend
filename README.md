@@ -22,9 +22,9 @@
 1. В директории проекта в SmatApp Code выбрать "Настройки проекта"-> "Дополнительно". Активировать пункт "Отправлять команду /start на запуск голосом".
 1.  В директории проекта в SmatApp Code выбрать "Редактор"-> "Сущности". Далее перейти на вкладку "Системные", в выпадающем списке найти и активировать сущность "duckling.number"
 
-## Заводим проект в "SmartApp Studio":
+## Заводим проект в "SmartMarket Studio":
 
-1. Идём на страницу SmartApp Studio ([ссылка](https://smartapp-studio.sberdevices.ru/));
+1. Идём на страницу SmartMarket Studio ([ссылка](https://developers.sber.ru/studio));
 1. Нажимаем "Создать смартапп";
 1. Указываем "Имя";
 1. Переключаем "Выбор типа смартапа" на "Canvas App";
@@ -40,5 +40,5 @@
 1. Загружаем файлы из папки "postman" (collection и demo_env) директории проекта todo-canvas-app-backend;
 1. В правой верхней части экрана, рядом с полем demo_env, нажимаем на кнопку с иконкой глаза;
 1. Выбираем "Edit";
-1. Задаем initial_value для поля webhook (URL, полученный в "SmartApp Code");
-1. Задаем initial_value для поля name_scenario (имя для запуска сценария)
+1. Задаем current_value для поля webhook (URL, полученный в "SmartApp Code");
+1. Задаем current_value для поля name_scenario (имя для запуска сценария)
